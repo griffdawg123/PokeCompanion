@@ -1,0 +1,54 @@
+:root {
+    --p-red: #F93318;
+    --p-blue: #196EEF;
+    --p-yellow: #FFF933;
+    --p-green: #7DC62C;
+    --p-purple: #B243F0;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: white;
+}
+
+.companion {
+    display: grid;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border: 5px solid var(--p-red);
+    background: rgb(from var(--p-red) r g b / 0.7);
+    border-radius: 0.5em;
+}
+
+.filter-pokemon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-pokemon input {
+    border-radius: 0.25em;
+    outline: none;
+    border: 1px solid var(--p-yellow);
+    background: rgb(from var(--p-yellow) r g b / 0.7);
+    padding: 0.25em 0.5em;
+}
+
+.filter-pokemon input:focus {
+    border: 1px solid black;
+}
+
+.filter-pokemon button {
+    background: rgb(from var(--p-blue) r g b / 0.7);
+    border: 1px solid var(--p-blue);
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    cursor: pointer;
+    outline: none;
+}

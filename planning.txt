@@ -1,0 +1,12 @@
+logo
+search bar --> filter
+to collect / collected tabs
+list of pokemon in grid -- determined by page size
+Small grid items have pokemon id and Name w. sprite
+- On click, big splash screen with:
+    - Name
+    - id
+    - sprite
+    - location information per game
+    - Evolution information (with hyperlinks to other pokemon)
+    - add to collected button (removed if in collected tab)
