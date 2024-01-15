@@ -1,37 +1,35 @@
-import './styles.css'
-import logo from './static/header.png'
-import { useEffect, useState } from 'react'
-import kanto from './static/151.json'
-
-const MAX_WIDTH = 500
+import './styles.css';
+import React, { useState } from 'react';
+import kanto from './static/151.json';
+import { Header } from './components/header';
+import { PokemonGrid } from './components/PokemonGrid';
+import { Filter } from './components/Filter';
 
 export default function App() {
 
-  const  [width, setWidth] = useState(window.innerWidth)
-  const [toggleView, setToggleView] = useState(true)
+  const [search, setSearch] = useState("")
+  const [activeTab, setActiveTab] = useState(1)
 
-
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth)
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  const staticSize = width >= MAX_WIDTH
+  const empty = {}
 
   return (
     <div className="companion">
-    <img src={logo} alt="header image" width={staticSize ? MAX_WIDTH : width-80}></img>
-    <form className='filter-pokemon'>
-      <input type="text" placeholder="Enter a Pokemon's name..."></input>
-      <button className='filter-button'>Filter</button>
-    </form>
-    <div className='toggle-button' onClick={() => {setToggleView(!toggleView)}}>fwaf</div>
-    <ul>
-      {Object.keys(kanto).map((id) => {
-        return <li>{id}. {kanto[id]}</li>
-      })}
-    </ul>
+      <Header />
+      <Filter searchValue={search} setSearchValue={setSearch} />
+      <div className="grid">
+        <div className='tab-list'>
+          <div className={activeTab === 1 ? 'tab active-tab' : 'tab'} onClick = {() => setActiveTab(1)}>To Collect</div>
+          <div className={activeTab === 2 ? 'tab active-tab' : 'tab'} onClick = {() => setActiveTab(2)}>Collected</div>
+        </div>
+        <div className='content-list'>
+          <div className={activeTab === 1 ? 'content active-content' : 'content'}>
+            <PokemonGrid pokemonList={kanto} searchValue={search} selected={true} />
+          </div>
+          <div className={activeTab === 2 ? 'content active-content' : 'content'}>
+            <PokemonGrid pokemonList={empty} searchValue={search} selected={false} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
