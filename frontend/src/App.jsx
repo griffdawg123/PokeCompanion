@@ -13,38 +13,46 @@ import { PokeHighlight } from "./components/PokeHighlight";
 
 export default function App() {
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState(0);
-
-  const empty = {};
+  const [selected, setSelected] = useState("");
+  const [collectedMons, setCollectedMons] = useState({})
+  const [toCollect, setToCollect] = useState(kanto)
 
   return (
     <div className="companion">
       <Header />
       <Filter searchValue={search} setSearchValue={setSearch} />
-        <TabWrapper>
-          <TabList>
-            <Tab id={1}>To Collect</Tab>
-            <Tab id={2}>Collected</Tab>
-          </TabList>
-          <ContentList>
-            <Content id={1}>
-              <PokemonGrid
-                pokemonList={kanto}
-                searchValue={search}
-                selected={true}
-                choosePokemon={setSelected}
-              />
-            </Content>
-            <Content id={2}>
-              <PokemonGrid
-                pokemonList={empty}
-                searchValue={search}
-                selected={false}
-              />
-            </Content>
-          </ContentList>
-        </TabWrapper>
-        <PokeHighlight selected={selected} pokeList={kanto}/>
+      <TabWrapper>
+        <TabList>
+          <Tab id={1}>To Collect</Tab>
+          <Tab id={2}>Collected</Tab>
+        </TabList>
+        <ContentList>
+          <Content id={1}>
+            <PokemonGrid
+              pokemonList={toCollect}
+              searchValue={search}
+              choosePokemon={setSelected}
+              select={setSelected}
+            />
+          </Content>
+          <Content id={2}>
+            <PokemonGrid
+              pokemonList={collectedMons}
+              searchValue={search}
+              choosePokemon={setSelected}
+              select={setSelected}
+            />
+          </Content>
+        </ContentList>
+      </TabWrapper>
+      <PokeHighlight
+        selected={selected}
+        select={setSelected}
+        toCollect={toCollect}
+        collectedMons={collectedMons}
+        setToCollect={setToCollect}
+        setCollectedMons={setCollectedMons}
+      />
     </div>
   );
 }
