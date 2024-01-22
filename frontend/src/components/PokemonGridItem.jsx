@@ -1,6 +1,6 @@
-export function PokemonGridItem({ id, pokemonList }) {
+export function PokemonGridItem({ id, pokemonList, select }) {
   return (
-    <div className="pokemon-grid-item">
+    <div className="pokemon-grid-item" onClick={() => select(id)}>
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
       />
