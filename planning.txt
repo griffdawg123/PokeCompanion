@@ -1,5 +1,6 @@
 logo
 search bar --> filter
+- toggle show evolutions
 to collect / collected tabs
 list of pokemon in grid -- determined by page size
 Small grid items have pokemon id and Name w. sprite
