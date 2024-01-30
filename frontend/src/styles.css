@@ -31,6 +31,7 @@ body {
   width: max-content;
   grid-template-rows: max-content;
   max-height: 96vh;
+  box-shadow: 0.5rem 0.5rem 10px grey;
 }
 
 .filter-pokemon {
@@ -172,6 +173,7 @@ body {
   height: 2rem;
   text-align: center;
   border: 3px solid red;
+  cursor: pointer;
 }
 
 .exit > p {

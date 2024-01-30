@@ -7,6 +7,7 @@ export function PokemonGrid({ pokemonList, searchValue, select }) {
         if (pokemonList[id].toLowerCase().includes(searchValue.toLowerCase())) {
           return (
             <PokemonGridItem
+              key={id}
               id={id}
               pokemonList={pokemonList}
               select={select}
