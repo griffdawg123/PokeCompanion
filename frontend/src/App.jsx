@@ -1,7 +1,5 @@
 import "./styles.css";
 import React, { useEffect, useState } from "react";
-import kanto from "./static/151.json";
-import all_pokemon from "./static/all_pokemon.json"
 import { Header } from "./components/header";
 import { PokemonGrid } from "./components/PokemonGrid";
 import { Filter } from "./components/Filter";
@@ -11,44 +9,31 @@ import { ContentList } from "./components/ContentList";
 import { Content } from "./components/Content";
 import { TabWrapper } from "./components/TabWrapper";
 import { PokeHighlight } from "./components/PokeHighlight";
-import { initializeApp } from "firebase/app"
-import { getAnalytics } from "firebase/analytics"
-import firebase from "firebase/compat/app";
-import "firebase/firestore"
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { db } from "./firebase";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
-async function getdata(db) {
-  const querySnapshot = await getDocs(collection(db, "pokemon-lists"));
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-  });
+const getPokemon = async (documentName, setPokelist) => {
+  console.log(documentName)
+  await getDocs(collection(db, "pokemon-lists"))
+    .then((querySnapshot) => {
+      const newData = querySnapshot.docs
+        .filter(doc => doc.id === documentName);
+      setPokelist(newData[0].data());
+      console.log(newData[0].data());
+    })
 }
 
 export default function App() {
-  const [pokeList, setPokeList] = useState({})
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState("");
   const [collectedMons, setCollectedMons] = useState({})
-  const [toCollect, setToCollect] = useState(all_pokemon)
+  const [toCollect, setToCollect] = useState({})
+  const [loading, setLoading] = useState(true);
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDgLzFh8G5toG0mC89E7dWGgNeTFjAhnu8",
-    authDomain: "pokecom-5f29e.firebaseapp.com",
-    projectId: "pokecom-5f29e",
-    storageBucket: "pokecom-5f29e.appspot.com",
-    messagingSenderId: "398139307633",
-    appId: "1:398139307633:web:396ff6701b6d2cfc774dd0",
-    measurementId: "G-4QT6SV50NV"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-
-  console.log(app);
-  const db = getFirestore(app);
-  console.log(db);
-
-  getdata(db)
+  useEffect(() => {
+    getPokemon("koaTpR4KjGT4qXmHj60q", setToCollect)
+    setLoading(!loading);
+  }, []);
 
   return (
     <div className="companion">
@@ -61,12 +46,13 @@ export default function App() {
         </TabList>
         <ContentList>
           <Content id={1}>
+            {loading ? <h2>Loading...</h2> :
             <PokemonGrid
               pokemonList={toCollect}
               searchValue={search}
               choosePokemon={setSelected}
               select={setSelected}
-            />
+            />}
           </Content>
           <Content id={2}>
             <PokemonGrid
