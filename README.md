@@ -38,7 +38,7 @@ Accessed the current release here: https://pokecom-5f29e.web.app
 Clone the repository to your local machine and run:
 
 ```shell
-npm i & npm run dev
+npm i && npm run dev
 ```
 
 Visit http://localhost:5173/ in a browser to visit application running on your local machines.
