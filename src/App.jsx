@@ -1,6 +1,6 @@
 import "./styles.css";
 import React, { useEffect, useState } from "react";
-import { Header } from "./components/header";
+import { Header } from "./components/Header";
 import { PokemonGrid } from "./components/PokemonGrid";
 import { Filter } from "./components/Filter";
 import { Tab } from "./components/Tab";
