@@ -1,0 +1,12 @@
+{
+    "national_dex_number": 1,
+    "name" : "Bulbasaur",
+    "type" : {
+        "type_1" : "grass",
+        "type_2" : "poison"
+    },
+    "evolutions" : {
+        "evolves_from" : null,
+        "evolves_to" : "Charmeleon"
+    }
+}
