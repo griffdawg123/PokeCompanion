@@ -40,6 +40,11 @@ export default function App() {
     getPokemon("koaTpR4KjGT4qXmHj60q", setToCollect, setLoading, setCollectedMons)
   }, []);
 
+  const alterCollected = (collected) => {
+    setCollectedMons(collected)
+    localStorage.setItem("collected", JSON.stringify(collected))
+  }
+
   return (
     <div className="companion">
       <Header />
@@ -75,7 +80,7 @@ export default function App() {
         toCollect={toCollect}
         collectedMons={collectedMons}
         setToCollect={setToCollect}
-        setCollectedMons={setCollectedMons}
+        setCollectedMons={alterCollected}
       />
     </div>
   );
