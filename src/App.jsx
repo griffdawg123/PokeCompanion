@@ -12,14 +12,20 @@ import { PokeHighlight } from "./components/PokeHighlight";
 import { db } from "./firebase";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 
-const getPokemon = async (documentName, setPokelist) => {
-  console.log(documentName)
+const getPokemon = async (documentName, setPokelist, setLoading, setCollected) => {
   await getDocs(collection(db, "pokemon-lists"))
     .then((querySnapshot) => {
       const newData = querySnapshot.docs
         .filter(doc => doc.id === documentName);
-      setPokelist(newData[0].data());
-      console.log(newData[0].data());
+      const temp = localStorage.getItem("collected")
+      if (temp) {
+        const collected = JSON.parse(temp)
+        setPokelist(Object.fromEntries(Object.entries(newData[0].data()).filter(([id, name]) => !Object.keys(collected).includes(id))))
+        setCollected(collected)
+      } else {
+        setPokelist(newData[0].data());
+      }
+      setLoading(false);
     })
 }
 
@@ -31,8 +37,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPokemon("koaTpR4KjGT4qXmHj60q", setToCollect)
-    setLoading(!loading);
+    getPokemon("koaTpR4KjGT4qXmHj60q", setToCollect, setLoading, setCollectedMons)
   }, []);
 
   return (
