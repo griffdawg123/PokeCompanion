@@ -17,6 +17,7 @@ The application is set up as a simple list of Pokemon placed in either a "collec
 
 - Firebase Cloud Firestore for storing Pokemon information (NoSQL)
 - Firebase library used for serving database documents in lieu of a dedicated backend server
+- Individual user data is saved in the browsers local storage
 
 <h3>Hosting</h3>
 
